@@ -7,13 +7,28 @@ using System.Collections;
 
 public class DataCenter {
 
-	// Use this for initialization
-	void Start () {
+    static public void WriteDataToFile(string filePath, string data)
+    {
+
+    }
+
+    static public string LoadDataFromFile(string filePath)
+    {
+
+        return string.Empty;
+    }
+
+
+    static public string ObjectToJsonStr<T>(object obj)
+    {
+
+        return string.Empty;
+    }
+
+    static public T JsonStrToObject<T>(string str)
+    {
+        T t = default(T);
+        return t;        
+    }
 	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }
