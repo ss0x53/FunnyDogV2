@@ -26,13 +26,6 @@ public class DataManager {
     }
 
 
-    public LevelData_t LoadGameLevel(int levelID)
-    {
-
-        return new LevelData_t();
-    }
-
-
     public void LoadGameData()
     {
 

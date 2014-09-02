@@ -7,17 +7,15 @@ using System.Collections;
 
 public class LevelManager {
 
-    public LevelData_t GetLevelData(int levelID)
+    public MapSolution_t GetLevelData(int levelID)
     {
-        // generate or load level data
-        return new LevelData_t();
+        int minStep = 0;
+        int maxStep = 0;
+        int mapWidth = 0;
+        int mapheight = 0;
+        int obstacleNumber = 0;
+        
+        MapSolution_t solution = new MapSolution_t(0,0,0,0,0);
+        return solution;
     }
-}
-
-public class LevelData_t
-{
-    public int[,] pathMatrix;
-    public int width;
-    public int height;
-    public int arrowNumbers;
 }

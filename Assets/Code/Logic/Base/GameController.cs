@@ -17,7 +17,7 @@ public class GameController {
     private PlayerIniter playerIniter = null;
 
     private List<pathDir_e> pathDirs = new List<pathDir_e>();
-    LevelData_t levelData;
+    MapSolution_t levelData;
 
     public void InitGame()
     {
@@ -32,7 +32,7 @@ public class GameController {
         levelData = GlobalManager.Instance.GetLevelManager.GetLevelData(levelID);
 
         pathIniter.InitPath(levelData);
-        arrowGridIniter.InitArrowGrid(levelData.arrowNumbers);
+        arrowGridIniter.InitArrowGrid(levelData.maxStep);
         playerIniter.InitPlayer();
 
         GlobalManager.Instance.GetUIManager.RegisterOnClickEvent(GameStart, "Button_Start");
@@ -64,7 +64,7 @@ public class GameController {
 
     public bool AddPathDir(pathDir_e dir)
     {
-        if (pathDirs.Count < levelData.arrowNumbers)
+        if (pathDirs.Count < levelData.maxStep)
         {
             pathDirs.Add(dir);
             arrowGridIniter.AddArrow();
