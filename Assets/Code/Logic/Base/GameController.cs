@@ -12,18 +12,18 @@ public class GameController {
     public GameStartDelegate gameStartEvent;
     public GameEndDelegate gameEndEvent;
 
-    private PathIniter pathIniter = null;
+    private PathGridIniter pathIniter = null;
     private ArrowGridIniter arrowGridIniter = null;
     private PlayerIniter playerIniter = null;
 
-    private List<pathDir_e> pathDirs = new List<pathDir_e>();
+    private List<enPathDir> pathDirs = new List<enPathDir>();
     MapSolution_t levelData;
 
     public void InitGame()
     {
         if ( !pathIniter || !arrowGridIniter || !playerIniter)
         {
-            pathIniter = GameObject.FindGameObjectWithTag("Pathiniter").GetComponent<PathIniter>();
+            pathIniter = GameObject.FindGameObjectWithTag("Pathiniter").GetComponent<PathGridIniter>();
             arrowGridIniter = GameObject.FindGameObjectWithTag("ArrowGridIniter").GetComponent<ArrowGridIniter>();
             playerIniter = GameObject.FindGameObjectWithTag("PlayerIniter").GetComponent<PlayerIniter>();
         }
@@ -34,12 +34,10 @@ public class GameController {
         pathIniter.InitPath(levelData);
         arrowGridIniter.InitArrowGrid(levelData.maxStep);
         playerIniter.InitPlayer();
-
-        GlobalManager.Instance.GetUIManager.RegisterOnClickEvent(GameStart, "Button_Start");
     }
 
 
-    public void GameStart(GameObject go)
+    public void GameStart()
     {
         gameStartEvent();
     }
@@ -62,7 +60,7 @@ public class GameController {
     }
 
 
-    public bool AddPathDir(pathDir_e dir)
+    public bool AddPathDir(enPathDir dir)
     {
         if (pathDirs.Count < levelData.maxStep)
         {
@@ -84,7 +82,7 @@ public class GameController {
     }
 
 
-    public List<pathDir_e> GetPathDirs()
+    public List<enPathDir> GetPathDirs()
     {
         return pathDirs;
     }
@@ -96,10 +94,15 @@ public class GameController {
     }
 
 
+    public void GameQuit()
+    {
+        Application.Quit();    
+    }
 }
 
 
-public enum pathDir_e
+
+public enum enPathDir
 {
     Right,
     Down,

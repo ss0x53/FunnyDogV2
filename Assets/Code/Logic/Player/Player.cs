@@ -8,17 +8,19 @@ using System.Collections.Generic;
 
 public class Player : MonoBehaviour {
 
-    private List<pathDir_e> myPath;
+    private List<enPathDir> myPath;
+    private Vector3 originPos = Vector3.zero;
 
     void Start()
     {
         GlobalManager.Instance.GetGameController.gameStartEvent += Go;
+        originPos = transform.localPosition;
     }
 
 
     public void SetPlayerOriginState()
     {
-
+        transform.localPosition = originPos;
     }
 
 
@@ -37,6 +39,9 @@ public class Player : MonoBehaviour {
 
     IEnumerator ShowBegin()
     {
+
+
+
 
         yield return 0;
     }

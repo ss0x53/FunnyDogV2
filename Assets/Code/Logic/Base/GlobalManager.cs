@@ -18,13 +18,27 @@ public class GlobalManager : MonoBehaviour {
     private AssetsManager m_AssetsManager;
     private DataManager m_DataManager;
     private UIManager m_UIManager;
+    private GameManager m_GameManager;
 
     void Awake()
     {
+        DontDestroyOnLoad(gameObject);
         m_Instance = this;
         Init();
-        DontDestroyOnLoad(gameObject);
+
+        // Game Start Trigger
+        m_GameManager.SwitchGameState(m_GameManager.GetCurrentGameState(), m_GameManager.GetTargetGameState());
     }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            enGameState currState = GlobalManager.Instance.GetGameManager.GetCurrentGameState();
+            GlobalManager.Instance.GetGameManager.SwitchGameState(currState, enGameState.GameState_GameIfQuit);
+        }
+    }
+
 
     private void Init()
     {
@@ -33,9 +47,11 @@ public class GlobalManager : MonoBehaviour {
         m_AssetsManager = new AssetsManager();
         m_DataManager = new DataManager();
         m_UIManager = new UIManager();
+        m_GameManager = new GameManager();
 
         m_DataManager.Init();
         m_UIManager.Init();
+        m_GameManager.Init();
     }
 
     public GameController GetGameController
@@ -61,6 +77,11 @@ public class GlobalManager : MonoBehaviour {
     public UIManager GetUIManager
     {
         get { return m_UIManager; }
+    }
+
+    public GameManager GetGameManager
+    {
+        get { return m_GameManager; }
     }
 
 	

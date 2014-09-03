@@ -13,6 +13,7 @@ public enum enInterfaceName
     InterfaceName_GameMainMenu,
     InterfaceName_GamePlay,
     InterfaceName_GameAbout,
+    InterfaceName_GameIfExit,
     InterfaceName_Max,
 }
 
@@ -25,10 +26,14 @@ public class UIManager {
     public void Init()
     {
         m_InterfaceResourcePathArray = new string[(int)enInterfaceName.InterfaceName_Max];
-        // interface resource path
-        // interface resource path
-        // interface resource path
-        // interface resource path
+
+        m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_CompanyLogo]    = "Interface_CompanyLogo";
+        m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_GameLogo]       = "Interface_GameLogo";
+        m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_GameMainMenu]   = "Interface_MainMenu";
+        m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_GamePlay]       = "Interface_GamePlay";
+        m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_GameAbout]      = "Interface_About";
+        m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_GameIfExit] = "Interface_IfExit";
+
         m_InterfaceGameObjectArray = new GameObject[(int)enInterfaceName.InterfaceName_Max];
         m_UICameraTrans = GameObject.Find("UI Root/Camera").transform;
 
