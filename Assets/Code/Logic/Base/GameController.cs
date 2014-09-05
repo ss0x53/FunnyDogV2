@@ -5,6 +5,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using AGMAlgorithm;
 public class GameController {
 
     public delegate void GameStartDelegate();

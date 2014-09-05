@@ -84,14 +84,6 @@ public class UIManager {
         }
     }
 
-
-    public void RegisterOnClickEvent(UIEventListener.VoidDelegate callback, string buttonName)
-    {
-        GameObject button = GameObject.Find(buttonName);
-        UIEventListener.Get(button).onClick = callback;
-    }
-
-	
 }
 
 

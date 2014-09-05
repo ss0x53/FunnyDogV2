@@ -4,7 +4,7 @@
 
 using UnityEngine;
 using System.Collections;
-
+using AGMAlgorithm;
 public class LevelManager {
 
     public MapSolution_t GetLevelData(int levelID)
