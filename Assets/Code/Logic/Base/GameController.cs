@@ -19,33 +19,34 @@ public class GameController {
 
     private List<enPathDir> pathDirs = new List<enPathDir>();
     MapSolution_t levelData;
+    int levelID;
+
 
     public void InitGame()
     {
-        if ( !pathIniter || !arrowGridIniter || !playerIniter)
-        {
-            pathIniter = GameObject.FindGameObjectWithTag("Pathiniter").GetComponent<PathGridIniter>();
-            arrowGridIniter = GameObject.FindGameObjectWithTag("ArrowGridIniter").GetComponent<ArrowGridIniter>();
-            playerIniter = GameObject.FindGameObjectWithTag("PlayerIniter").GetComponent<PlayerIniter>();
-        }
-
-        int levelID = GlobalManager.Instance.GetDataManager.GetGameLevel();
+        levelID = GlobalManager.Instance.GetDataManager.GetGameLevel();
         levelData = GlobalManager.Instance.GetLevelManager.GetLevelData(levelID);
-
-        pathIniter.InitPath(levelData);
-        arrowGridIniter.InitArrowGrid(levelData.maxStep);
-        playerIniter.InitPlayer();
     }
 
 
-    public void GameStart()
+    public bool GameStart()
     {
-        gameStartEvent();
+        if (pathDirs.Count >= levelData.minStep)
+        {
+            gameStartEvent();
+            return true;
+        }
+        return false;
     }
 
 
     public void GameEnd(bool isWon)
     {
+        if (isWon)
+        {
+            GlobalManager.Instance.GetDataManager.UpgradeData();
+            InitGame();
+        }
         gameEndEvent();
         ClearGameData();
     }
@@ -66,20 +67,30 @@ public class GameController {
         if (pathDirs.Count < levelData.maxStep)
         {
             pathDirs.Add(dir);
-            arrowGridIniter.AddArrow();
             return true;
         }
         return false;
     }
 
 
-    public void RemoveDir()
+    public bool RemoveDir()
     {
         if (pathDirs.Count > 0)
         {
             pathDirs.RemoveAt(pathDirs.Count - 1);
-            arrowGridIniter.RemoveArrow();
+            return true;
         }
+        return false;
+    }
+
+
+    public bool CanGo()
+    {
+        if (pathDirs.Count >= levelData.minStep)
+        {
+            return true;
+        }
+        return false;
     }
 
 
@@ -87,6 +98,19 @@ public class GameController {
     {
         return pathDirs;
     }
+
+
+    public int GetLevelID()
+    {
+        return levelID;
+    }
+
+
+    public MapSolution_t GetLevelData()
+    {
+        return levelData;
+    }
+
 
 
     public void ClearGameData()

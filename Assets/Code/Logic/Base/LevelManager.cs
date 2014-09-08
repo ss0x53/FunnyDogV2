@@ -9,13 +9,7 @@ public class LevelManager {
 
     public MapSolution_t GetLevelData(int levelID)
     {
-        int minStep = 0;
-        int maxStep = 0;
-        int mapWidth = 0;
-        int mapheight = 0;
-        int obstacleNumber = 0;
-        
-        MapSolution_t solution = new MapSolution_t(0,0,0,0,0);
+        MapSolution_t solution = new MapSolution_t(levelID);
         return solution;
     }
 }

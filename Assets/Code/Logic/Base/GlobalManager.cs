@@ -52,6 +52,7 @@ public class GlobalManager : MonoBehaviour {
         m_DataManager.Init();
         m_UIManager.Init();
         m_GameManager.Init();
+        c_GameController.InitGame();
     }
 
     public GameController GetGameController

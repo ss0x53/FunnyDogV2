@@ -4,31 +4,56 @@ using System.Collections.Generic;
 
 public class ArrowGridIniter : MonoBehaviour {
 
-    private List<GameObject> grids = new List<GameObject>();
+    public List<GameObject> grids = new List<GameObject>();
     private List<GameObject> arrows = new List<GameObject>();
+    private int nextAvailableGridId = 0;
     public void InitArrowGrid(int number)
     {
         DestroyTmpObjs();
-        for (int i = 0; i < number; ++i)
+
+        for (int i = 0; i < grids.Count; ++i)
         {
-            GameObject go = GlobalManager.Instance.GetAssetsManager.GetGameObject("Grid");
-            grids.Add(go);
+            if (i >= number)
+            {
+                SetGridDisable(grids[i]);
+            }
+            else
+            {
+                ++nextAvailableGridId;
+            }
         }
-        ReposAllGrids();
     }
 
 
-    void ReposAllGrids()
+
+
+    public void SetGridEnable(GameObject grid)
     {
+        grid.GetComponent<UISprite>().color = Color.white;
 
     }
 
 
-    public void AddArrow()
+    public void SetGridDisable(GameObject grid)
     {
-        GameObject arrow = GlobalManager.Instance.GetAssetsManager.GetGameObject("Arrow");
-        int arrowPosID = grids.Count;
-        Transform arrowParent = grids[arrowPosID].transform;
+        grid.GetComponent<UISprite>().color = Color.gray;
+    }
+
+
+
+    public void AddArrow(enPathDir dir)
+    {
+        GameObject arrow;
+        if (dir == enPathDir.Right)
+        {
+            arrow = GlobalManager.Instance.GetAssetsManager.GetGameObject("ArrowRight");
+        }
+        else
+        {
+            arrow = GlobalManager.Instance.GetAssetsManager.GetGameObject("ArrowDown");
+        }
+
+        Transform arrowParent = grids[nextAvailableGridId].transform;
         arrow.transform.parent = arrowParent;
         arrow.transform.localPosition = Vector3.zero;
         arrows.Add(arrow);
@@ -41,6 +66,7 @@ public class ArrowGridIniter : MonoBehaviour {
         GameObject arrow = arrows[id];
         arrows.RemoveAt(id);
         Destroy(arrow);
+        --nextAvailableGridId;
     }
 
 
@@ -52,12 +78,6 @@ public class ArrowGridIniter : MonoBehaviour {
             Destroy(obj);
         }
 
-        foreach (GameObject obj in grids)
-        {
-            Destroy(obj);
-        }
-
-        grids.Clear();
         arrows.Clear();
     }
 	

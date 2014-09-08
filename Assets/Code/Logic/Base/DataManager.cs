@@ -17,6 +17,7 @@ public class DataManager {
     public void UpgradeData()
     {
         gameData.currLevel += 1;
+        SaveGameData();
     }
 
 
