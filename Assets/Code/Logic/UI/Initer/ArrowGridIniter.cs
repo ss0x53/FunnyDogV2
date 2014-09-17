@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class ArrowGridIniter : MonoBehaviour {
 
+    private string resPath_Arrow = "GamePlayElements/";
+
     public List<GameObject> grids = new List<GameObject>();
     private List<GameObject> arrows = new List<GameObject>();
     private int nextAvailableGridId = 0;
@@ -46,11 +48,11 @@ public class ArrowGridIniter : MonoBehaviour {
         GameObject arrow;
         if (dir == enPathDir.Right)
         {
-            arrow = GlobalManager.Instance.GetAssetsManager.GetGameObject("ArrowRight");
+            arrow = GlobalManager.Instance.GetAssetsManager.GetGameObject(resPath_Arrow, "ArrowRight");
         }
         else
         {
-            arrow = GlobalManager.Instance.GetAssetsManager.GetGameObject("ArrowDown");
+            arrow = GlobalManager.Instance.GetAssetsManager.GetGameObject(resPath_Arrow, "ArrowDown");
         }
 
         Transform arrowParent = grids[nextAvailableGridId].transform;

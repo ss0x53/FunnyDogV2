@@ -9,11 +9,11 @@ using System.Collections.Generic;
 public class AssetsManager {
     Dictionary<string, GameObject> originAssets = new Dictionary<string, GameObject>();
 
-    public GameObject GetGameObject(string name)
+    public GameObject GetGameObject(string path, string name)
     {
         if (!originAssets.ContainsKey(name))
         {
-            GameObject origin = Resources.Load(name) as GameObject;
+            GameObject origin = Resources.Load(path + name) as GameObject;
             originAssets.Add(name, origin);
         }
         GameObject obj = GameObject.Instantiate(originAssets[name]) as GameObject;

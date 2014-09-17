@@ -27,12 +27,12 @@ public class UIManager {
     {
         m_InterfaceResourcePathArray = new string[(int)enInterfaceName.InterfaceName_Max];
 
-        m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_CompanyLogo]    = "Interface_CompanyLogo";
-        m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_GameLogo]       = "Interface_GameLogo";
-        m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_GameMainMenu]   = "Interface_MainMenu";
-        m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_GamePlay]       = "Interface_GamePlay";
-        m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_GameAbout]      = "Interface_About";
-        m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_GameIfExit] = "Interface_IfExit";
+        m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_CompanyLogo]    = "Interface/Interface_CompanyLogo";
+        m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_GameLogo]       = "Interface/Interface_GameLogo";
+        m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_GameMainMenu]   = "Interface/Interface_MainMenu";
+        m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_GamePlay]       = "Interface/Interface_GamePlay";
+        m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_GameAbout]      = "Interface/Interface_GameAbout";
+        m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_GameIfExit]     = "Interface/Interface_IfExit";
 
         m_InterfaceGameObjectArray = new GameObject[(int)enInterfaceName.InterfaceName_Max];
         m_UICameraTrans = GameObject.Find("UI Root/Camera").transform;
@@ -47,7 +47,7 @@ public class UIManager {
         {
             obj.transform.parent = m_UICameraTrans;
             obj.transform.localPosition = Vector3.zero;
-            obj.transform.localScale = Vector3.zero;
+            obj.transform.localScale = new Vector3(1, 1, 1);
             obj.SetActive(true);
             m_InterfaceGameObjectArray[(int)interfaceName] = obj;
         }

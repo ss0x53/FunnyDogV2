@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PlayerIniter : MonoBehaviour {
 
+    private string resPath_Player = "GamePlayElements/";
+
     private GameObject player = null;
 
 
@@ -11,7 +13,7 @@ public class PlayerIniter : MonoBehaviour {
         transform.localPosition = new Vector3(0, pos.y, 0);
         if (player == null)
         {
-            player = GlobalManager.Instance.GetAssetsManager.GetGameObject("Player");
+            player = GlobalManager.Instance.GetAssetsManager.GetGameObject(resPath_Player,"Player");
         }
 
         player.GetComponent<Player>().SetPlayerOriginState(new Vector3(pos.x,0,pos.z));

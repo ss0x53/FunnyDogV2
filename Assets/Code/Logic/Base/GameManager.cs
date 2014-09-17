@@ -92,6 +92,13 @@ public class GameManager {
                                 SetTargetGameState(enGameState.GameState_GameMainMenu);
                             }
                             break;
+                        case enGameState.GameState_GameMainMenu:
+                            {
+                                GlobalManager.Instance.GetUIManager.RemoveInterface(enInterfaceName.InterfaceName_CompanyLogo);
+                                GlobalManager.Instance.GetUIManager.AddInterface(enInterfaceName.InterfaceName_GameMainMenu);
+                                SetCurrentGameState(enGameState.GameState_GameMainMenu);
+                            }
+                            break;
                     }
                 }
                 break;

@@ -9,6 +9,7 @@ public enum enFadeType
     Fade_Position,
     Fade_SpriteColor,
     Fade_NGUISprite,
+    Fade_NGUITexture,
 }
 
 public class EffectFader : MonoBehaviour {
@@ -34,6 +35,11 @@ public class EffectFader : MonoBehaviour {
             case enFadeType.Fade_SpriteColor:
                 {
                     StartCoroutine(ToFadeSpriteColor((Color)targetValue,step, callback));
+                }
+                break;
+            case enFadeType.Fade_NGUITexture:
+                {
+                    StartCoroutine(ToFadeNGUITextureColor((Color)targetValue, step, callback));
                 }
                 break;
         }
@@ -81,6 +87,28 @@ public class EffectFader : MonoBehaviour {
             }
             yield return 0;
         }
+    }
+
+    IEnumerator ToFadeNGUITextureColor(Color targetColor, float step, FadeOverDelegate callback)
+    {
+        UITexture texture = GetComponent<UITexture>();
+        if (texture)
+        {
+            //while (texture.color.r != targetColor.r || texture.color.g != targetColor.g || texture.color.b != targetColor.b || texture.color.a != targetColor.a)
+            while(Mathf.Abs(texture.alpha - targetColor.a) > 0.01f)
+            {
+                texture.color = Color.Lerp(texture.color, targetColor, step);
+                yield return new WaitForSeconds(Time.deltaTime);
+            }
+            if (callback != null)
+            {
+                callback();
+            }
+            yield return 0;
+        }
+
+        
+
     }
 	
 }

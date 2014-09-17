@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class PathGridIniter : MonoBehaviour {
 
+    private string resPath_Grid = "GamePlayElements/";
     List<GameObject> grids = new List<GameObject>();
 
     public Vector3 InitPath(MapSolution_t _data)
@@ -28,15 +29,15 @@ public class PathGridIniter : MonoBehaviour {
                 GameObject grid;
                 if (_data.mapMatrix[y, x] == 0)
                 {
-                    grid = GlobalManager.Instance.GetAssetsManager.GetGameObject("GridNormal");
+                    grid = GlobalManager.Instance.GetAssetsManager.GetGameObject(resPath_Grid,"GridNormal");
                 }
                 else if (_data.mapMatrix[y, x] == 1)
                 {
-                    grid = GlobalManager.Instance.GetAssetsManager.GetGameObject("GridDanger");
+                    grid = GlobalManager.Instance.GetAssetsManager.GetGameObject(resPath_Grid,"GridDanger");
                 }
                 else
                 {
-                    grid = GlobalManager.Instance.GetAssetsManager.GetGameObject("GridWon");
+                    grid = GlobalManager.Instance.GetAssetsManager.GetGameObject(resPath_Grid,"GridWon");
                 }
 
                 grid.transform.parent = transform;
