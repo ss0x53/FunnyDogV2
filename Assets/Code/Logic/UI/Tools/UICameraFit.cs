@@ -20,7 +20,6 @@ public class UICameraFit : MonoBehaviour {
         {
             camera.orthographicSize = x_proportion;
         }
-        Debug.Log(x_proportion + "    " + y_proportion + "    " + Screen.width + "    " + Screen.height);
 	}
 
 }

@@ -10,12 +10,23 @@ public class IGamePlayController : MonoBehaviour {
     public PathGridIniter pathIniter = null;
     public ArrowGridIniter arrowGridIniter = null;
     public PlayerIniter playerIniter = null;
+    public UILabel levelText = null;
     MapSolution_t levelData;
 
 	void Start () {
-        GlobalManager.Instance.GetGameController.gameEndEvent += GameEndEventReceiver;
+        
         AllIniterInit();
 	}
+
+    void OnEnable()
+    {
+        GlobalManager.Instance.GetGameController.gameEndEvent += GameEndEventReceiver;
+    }
+
+    void OnDisable()
+    {
+        GlobalManager.Instance.GetGameController.gameEndEvent -= GameEndEventReceiver;
+    }
 
 
     void RegeisterButtonEvent(bool isOk)
@@ -60,6 +71,7 @@ public class IGamePlayController : MonoBehaviour {
         arrowGridIniter.InitArrowGrid(levelData.maxStep);
         playerIniter.InitPlayer(pos);
         button_Go.SetActive(false);
+        levelText.text = "Level: " + levelData.levelID;
     }
 
 
@@ -104,6 +116,7 @@ public class IGamePlayController : MonoBehaviour {
 
     void BTN_Go(GameObject go)
     {
+        Debug.Log("Click BTN GO");
         if (GlobalManager.Instance.GetGameController.GameStart())
         {
             RegeisterButtonEvent(false);

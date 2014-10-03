@@ -10,25 +10,22 @@ using AGMAlgorithm;
 public class Player : MonoBehaviour {
 
     private List<enPathDir> myPath;
-    private Vector2 stepIndex = Vector2.zero;
+    //private Vector2 stepIndex = Vector2.zero;
+    private int mapColIndex = 0;
+    private int mapRowIndex = 0;
     private MapSolution_t solution;
     private float stepMoveSize;
-    void Start()
-    {
-        GlobalManager.Instance.GetGameController.gameStartEvent += Go;
-    }
-
-
-    void OnDestroy()
-    {
-        GlobalManager.Instance.GetGameController.gameStartEvent -= Go;
-    }
-
+   
 
     public void SetPlayerOriginState(Vector3 playerOriginPos)
     {
         transform.localPosition = new Vector3(playerOriginPos.x,0,0);
-        stepMoveSize = playerOriginPos.z;
+        //playerOriginPos.z;
+    }
+
+    public void SetStepMoveSize(int size)
+    {
+        stepMoveSize = size;
     }
 
 
@@ -48,36 +45,49 @@ public class Player : MonoBehaviour {
 
     IEnumerator ShowBegin()
     {
-        foreach (enPathDir dir in myPath)
+        int pathIndex = 0;
+        enPathDir dir;
+        bool isWon = false;
+        while (true)
         {
+            if (pathIndex == myPath.Count)
+            {
+                pathIndex = 0;
+            }
+            dir = myPath[pathIndex++];
             if (dir == enPathDir.Right)
             {
-                stepIndex.x += 1;
+                ++mapColIndex;
                 Vector3 targetPos = transform.localPosition + new Vector3(stepMoveSize, 0, 0);
-                transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetPos, 0.3f);
+                //transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetPos, 0.3f);
+                transform.localPosition = targetPos;
             }
             else
             {
-                stepIndex.y += 1;
-                Vector3 targetPos = transform.localPosition + new Vector3(0, stepMoveSize, 0);
-                transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetPos, 0.3f);
+                ++mapRowIndex;
+                Vector3 targetPos = transform.localPosition + new Vector3(0, -stepMoveSize, 0);
+                //transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetPos, 0.3f);
+                transform.localPosition = targetPos;
             }
 
-            if ((int)stepIndex.x == solution.mapWidth || (int)stepIndex.y == solution.mapHeight)
+            if (solution.mapMatrix[mapRowIndex, mapColIndex] == enGrid.Danger)
             {
-                PlayerGameOverAnimation(true);
                 break;
             }
 
-            if (solution.mapMatrix[(int)stepIndex.y, (int)stepIndex.x] == 1)
+            if (solution.mapMatrix[mapRowIndex, mapColIndex] == enGrid.Won)
             {
-                PlayerGameOverAnimation(false);
+                isWon = true;
                 break;
             }
-
+            yield return new WaitForSeconds(0.5f);
         }
+
+        StartCoroutine(PlayerGameOverAnimation(isWon));
+
+
         yield return 0;
-    }
+    } 
 
 
 
@@ -85,11 +95,11 @@ public class Player : MonoBehaviour {
     {
         if (isWon)
         {
-
+            Debug.Log("================= Won");
         }
         else
         {
-
+            Debug.Log("================= Dead");
         }
 
         yield return new WaitForSeconds(1.5f);

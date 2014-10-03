@@ -24,6 +24,7 @@ public class GameController {
 
     public void InitGame()
     {
+        pathDirs.Clear();
         levelID = GlobalManager.Instance.GetDataManager.GetGameLevel();
         levelData = GlobalManager.Instance.GetLevelManager.GetLevelData(levelID);
     }
@@ -33,8 +34,15 @@ public class GameController {
     {
         if (pathDirs.Count >= levelData.minStep)
         {
-            gameStartEvent();
-            return true;
+            if (gameStartEvent != null)
+            {
+                gameStartEvent();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         return false;
     }
@@ -45,10 +53,12 @@ public class GameController {
         if (isWon)
         {
             GlobalManager.Instance.GetDataManager.UpgradeData();
-            InitGame();
         }
-        gameEndEvent();
-        ClearGameData();
+
+        InitGame();
+        GlobalManager.Instance.GetGameManager.SwitchGameState(enGameState.GameState_GamePlay, enGameState.GameState_GamePlay);
+        //gameEndEvent();
+        //ClearGameData();
     }
 
     public void GamePause()
@@ -123,6 +133,7 @@ public class GameController {
     {
         Application.Quit();    
     }
+
 }
 
 

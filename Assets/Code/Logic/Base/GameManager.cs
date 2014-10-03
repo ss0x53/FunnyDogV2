@@ -164,6 +164,11 @@ public class GameManager {
                                 SetCurrentGameState(enGameState.GameState_GameIfQuit);
                             }
                             break;
+                        case enGameState.GameState_GamePlay:
+                            GlobalManager.Instance.GetUIManager.RemoveInterface(enInterfaceName.InterfaceName_GamePlay);
+                            GlobalManager.Instance.GetUIManager.AddInterface(enInterfaceName.InterfaceName_GamePlay);
+                            SetCurrentGameState(enGameState.GameState_GamePlay);
+                            break;
                     }
                 }
                 break;

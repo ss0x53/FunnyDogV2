@@ -19,10 +19,10 @@ public class ArrowGridIniter : MonoBehaviour {
             {
                 SetGridDisable(grids[i]);
             }
-            else
-            {
-                ++nextAvailableGridId;
-            }
+            //else
+            //{
+            //    ++nextAvailableGridId;
+            //}
         }
     }
 
@@ -55,8 +55,10 @@ public class ArrowGridIniter : MonoBehaviour {
             arrow = GlobalManager.Instance.GetAssetsManager.GetGameObject(resPath_Arrow, "ArrowDown");
         }
 
-        Transform arrowParent = grids[nextAvailableGridId].transform;
+        Transform arrowParent = grids[nextAvailableGridId++].transform;
         arrow.transform.parent = arrowParent;
+        arrow.transform.localScale = new Vector3(1, 1, 1);
+        arrow.GetComponent<UISprite>().SetDimensions(93,93);
         arrow.transform.localPosition = Vector3.zero;
         arrows.Add(arrow);
     }
