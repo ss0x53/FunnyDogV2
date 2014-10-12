@@ -29,12 +29,16 @@ public class DataManager {
 
     public void LoadGameData()
     {
-
+        if (PlayerPrefs.HasKey("GameLevel"))
+        {
+            gameData.currLevel = PlayerPrefs.GetInt("GameLevel");
+        }
     }
 
 
     public void SaveGameData()
     {
+        PlayerPrefs.SetInt("GameLevel", gameData.currLevel);
 
     }
 

@@ -8,14 +8,19 @@ using System.Collections.Generic;
 using AGMAlgorithm;
 
 public class Player : MonoBehaviour {
-
+    public GameObject playerMesh = null;
     private List<enPathDir> myPath;
     //private Vector2 stepIndex = Vector2.zero;
     private int mapColIndex = 0;
     private int mapRowIndex = 0;
     private MapSolution_t solution;
     private float stepMoveSize;
-   
+
+
+    public void SetDimensions(int x, int y)
+    {
+        playerMesh.GetComponent<UISprite>().SetDimensions(x, y);
+    }
 
     public void SetPlayerOriginState(Vector3 playerOriginPos)
     {
@@ -95,14 +100,20 @@ public class Player : MonoBehaviour {
     {
         if (isWon)
         {
-            Debug.Log("================= Won");
+            yield return new WaitForSeconds(0.5f);
+            playerMesh.animation.Play("Anim_PlayerWon");
+            yield return new WaitForSeconds(2.0f);
         }
         else
         {
-            Debug.Log("================= Dead");
+            yield return new WaitForSeconds(0.5f);
+            transform.localEulerAngles = new Vector3(0, 0, -20);
+            yield return new WaitForSeconds(0.6f);
+            transform.localEulerAngles = new Vector3(0, 0, -90);
+            transform.localPosition -= new Vector3(0, 60, 0);
+            yield return new WaitForSeconds(1.0f);
         }
 
-        yield return new WaitForSeconds(1.5f);
         GameOver(isWon);
     }
 

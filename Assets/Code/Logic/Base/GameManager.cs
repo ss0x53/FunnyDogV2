@@ -63,7 +63,7 @@ public class GameManager {
 
     public void SwitchGameState(enGameState enOldGameState, enGameState enNewGameState)
     {
-        //SetPrevGameState(enOldGameState);
+        SetPrevGameState(enOldGameState);
         switch (enOldGameState)
         {
             case enGameState.GameState_None:                        // Game Execute

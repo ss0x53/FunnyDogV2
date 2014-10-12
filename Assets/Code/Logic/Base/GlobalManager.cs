@@ -32,10 +32,14 @@ public class GlobalManager : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            enGameState currState = GlobalManager.Instance.GetGameManager.GetCurrentGameState();
-            GlobalManager.Instance.GetGameManager.SwitchGameState(currState, enGameState.GameState_GameIfQuit);
+            if (GlobalManager.Instance.GetGameManager.GetCurrentGameState() == enGameState.GameState_GamePlay)
+            {
+                Application.Quit();
+            }
+            //enGameState currState = GlobalManager.Instance.GetGameManager.GetCurrentGameState();
+            //GlobalManager.Instance.GetGameManager.SwitchGameState(currState, enGameState.GameState_GameIfQuit);
         }
     }
 
