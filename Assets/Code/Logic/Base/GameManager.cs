@@ -6,6 +6,7 @@ public enum enGameState
     GameState_None = -1,
     GameState_CompanyLogo,
     GameState_GameLogo,
+    GameState_GameAD,
     GameState_GameMainMenu,
     GameState_GamePlay,
     GameState_GameAbout,
@@ -24,7 +25,7 @@ public class GameManager {
     {
         m_enPrevGameState = enGameState.GameState_None;
         m_enCurrentGameState = enGameState.GameState_None;
-        m_enTargetGameState = enGameState.GameState_CompanyLogo;
+        m_enTargetGameState = enGameState.GameState_GameMainMenu;
     }
 
 
@@ -77,6 +78,12 @@ public class GameManager {
                                 SetTargetGameState(enGameState.GameState_GameLogo);
                             }
                             break;
+                        case enGameState.GameState_GameMainMenu:
+                            {
+                                GlobalManager.Instance.GetUIManager.AddInterface(enInterfaceName.InterfaceName_GameMainMenu);
+                                SetCurrentGameState(enGameState.GameState_GameMainMenu);
+                            }
+                            break;
                     }
                 }
                 break;
@@ -97,6 +104,13 @@ public class GameManager {
                                 GlobalManager.Instance.GetUIManager.RemoveInterface(enInterfaceName.InterfaceName_CompanyLogo);
                                 GlobalManager.Instance.GetUIManager.AddInterface(enInterfaceName.InterfaceName_GameMainMenu);
                                 SetCurrentGameState(enGameState.GameState_GameMainMenu);
+                            }
+                            break;
+                        case enGameState.GameState_GameAD:
+                            {
+                                GlobalManager.Instance.GetUIManager.RemoveInterface(enInterfaceName.InterfaceName_CompanyLogo);
+                                GlobalManager.Instance.GetUIManager.AddInterface(enInterfaceName.InterfaceName_GameAD);
+                                SetCurrentGameState(enGameState.GameState_GameAD);
                             }
                             break;
                     }
@@ -165,9 +179,18 @@ public class GameManager {
                             }
                             break;
                         case enGameState.GameState_GamePlay:
-                            GlobalManager.Instance.GetUIManager.RemoveInterface(enInterfaceName.InterfaceName_GamePlay);
-                            GlobalManager.Instance.GetUIManager.AddInterface(enInterfaceName.InterfaceName_GamePlay);
-                            SetCurrentGameState(enGameState.GameState_GamePlay);
+                            {
+                                GlobalManager.Instance.GetUIManager.RemoveInterface(enInterfaceName.InterfaceName_GamePlay);
+                                GlobalManager.Instance.GetUIManager.AddInterface(enInterfaceName.InterfaceName_GamePlay);
+                                SetCurrentGameState(enGameState.GameState_GamePlay);
+                            }
+                            break;
+                        case enGameState.GameState_GameAD:
+                            {
+                                GlobalManager.Instance.GetUIManager.RemoveInterface(enInterfaceName.InterfaceName_GamePlay);
+                                GlobalManager.Instance.GetUIManager.AddInterface(enInterfaceName.InterfaceName_GameAD);
+                                SetCurrentGameState(enGameState.GameState_GameAD);
+                            }
                             break;
                     }
                 }
@@ -208,6 +231,11 @@ public class GameManager {
                             SwitchGameState(enGameState.GameState_GameIfQuit, enGameState.GameState_GamePlay);
                         }
                         break;
+                }
+                break;
+            case enGameState.GameState_GameAD:
+                {
+                    
                 }
                 break;
             default: break;

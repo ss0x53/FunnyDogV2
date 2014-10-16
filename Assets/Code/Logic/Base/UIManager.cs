@@ -10,6 +10,7 @@ public enum enInterfaceName
     InterfaceName_None = -1,
     InterfaceName_CompanyLogo,
     InterfaceName_GameLogo,
+    InterfaceName_GameAD,
     InterfaceName_GameMainMenu,
     InterfaceName_GamePlay,
     InterfaceName_GameAbout,
@@ -29,6 +30,7 @@ public class UIManager {
 
         m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_CompanyLogo]    = "Interface/Interface_CompanyLogo";
         m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_GameLogo]       = "Interface/Interface_GameLogo";
+        m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_GameLogo]       = "Interface/Interface_GameAD";
         m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_GameMainMenu]   = "Interface/Interface_MainMenu";
         m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_GamePlay]       = "Interface/Interface_GamePlay";
         m_InterfaceResourcePathArray[(int)enInterfaceName.InterfaceName_GameAbout]      = "Interface/Interface_GameAbout";

@@ -24,6 +24,7 @@ public class IGameMenuController : MonoBehaviour {
 
     void BTN_NewGame(GameObject go)
     {
+        GlobalManager.Instance.GetDataManager.ClearGameData();
         GlobalManager.Instance.GetGameManager.SwitchGameState(enGameState.GameState_GameMainMenu, enGameState.GameState_GamePlay);
     }
 

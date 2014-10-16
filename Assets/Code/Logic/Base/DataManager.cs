@@ -18,6 +18,7 @@ public class DataManager {
     {
         gameData.currLevel += 1;
         SaveGameData();
+        GlobalManager.Instance.GetAdController.ShowAD();
     }
 
 
@@ -40,6 +41,12 @@ public class DataManager {
     {
         PlayerPrefs.SetInt("GameLevel", gameData.currLevel);
 
+    }
+
+
+    public void ClearGameData()
+    {
+        PlayerPrefs.DeleteAll();
     }
 
 }

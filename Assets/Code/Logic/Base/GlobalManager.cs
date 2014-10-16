@@ -19,13 +19,14 @@ public class GlobalManager : MonoBehaviour {
     private DataManager m_DataManager;
     private UIManager m_UIManager;
     private GameManager m_GameManager;
+    private ADController m_AdController;
 
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
         m_Instance = this;
         Init();
-
+        m_AdController = GameObject.Find("ADController").GetComponent<ADController>();
         // Game Start Trigger
         m_GameManager.SwitchGameState(m_GameManager.GetCurrentGameState(), m_GameManager.GetTargetGameState());
     }
@@ -36,7 +37,14 @@ public class GlobalManager : MonoBehaviour {
         {
             if (GlobalManager.Instance.GetGameManager.GetCurrentGameState() == enGameState.GameState_GamePlay)
             {
-                Application.Quit();
+                GlobalManager.Instance.GetGameManager.SwitchGameState(enGameState.GameState_GamePlay, enGameState.GameState_GameMainMenu);
+            }
+            if (GlobalManager.Instance.GetGameManager.GetCurrentGameState() == enGameState.GameState_GameMainMenu)
+            {
+                if (GlobalManager.Instance.GetGameManager.GetPrevGameState() == enGameState.GameState_GamePlay)
+                {
+                    Application.Quit();
+                }
             }
             //enGameState currState = GlobalManager.Instance.GetGameManager.GetCurrentGameState();
             //GlobalManager.Instance.GetGameManager.SwitchGameState(currState, enGameState.GameState_GameIfQuit);
@@ -87,6 +95,11 @@ public class GlobalManager : MonoBehaviour {
     public GameManager GetGameManager
     {
         get { return m_GameManager; }
+    }
+
+    public ADController GetAdController
+    {
+        get { return m_AdController; }
     }
 
 	
