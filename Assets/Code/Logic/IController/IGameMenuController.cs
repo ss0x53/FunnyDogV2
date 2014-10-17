@@ -12,6 +12,13 @@ public class IGameMenuController : MonoBehaviour {
         UIEventListener.Get(button_Continue).onClick = BTN_Continue;
         UIEventListener.Get(button_NewGame).onClick = BTN_NewGame;
         UIEventListener.Get(button_About).onClick = BTN_About;
+
+        // Control background music
+        AudioSource audio = GameObject.Find("Main Camera").GetComponent<AudioSource>();
+        if (!audio.isPlaying)
+        {
+            audio.Play();
+        }
 	}
 
 

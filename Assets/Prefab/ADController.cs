@@ -38,4 +38,9 @@ public class ADController : MonoBehaviour {
         jo.Call("ShowAd");
     }
 
+    public void AndroidExit()
+    {
+        jo.Call("AndroidExit");
+    }
+
 }

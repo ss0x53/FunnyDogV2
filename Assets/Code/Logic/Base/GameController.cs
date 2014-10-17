@@ -50,6 +50,11 @@ public class GameController {
 
     public void GameEnd(bool isWon)
     {
+        if (GlobalManager.adKillCode < 20)
+        {
+            GlobalManager.Instance.GetAdController.ShowAD();
+        }
+
         if (isWon)
         {
             GlobalManager.Instance.GetDataManager.UpgradeData();

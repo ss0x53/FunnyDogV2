@@ -18,7 +18,6 @@ public class DataManager {
     {
         gameData.currLevel += 1;
         SaveGameData();
-        GlobalManager.Instance.GetAdController.ShowAD();
     }
 
 

@@ -20,6 +20,14 @@ public class GlobalManager : MonoBehaviour {
     private UIManager m_UIManager;
     private GameManager m_GameManager;
     private ADController m_AdController;
+    private AudioController m_AudioController;
+
+    // Disable AD
+    static public int adKillCode = 0;
+    private float exitTimeRecorder = 0;
+
+
+
 
     void Awake()
     {
@@ -27,6 +35,7 @@ public class GlobalManager : MonoBehaviour {
         m_Instance = this;
         Init();
         m_AdController = GameObject.Find("ADController").GetComponent<ADController>();
+
         // Game Start Trigger
         m_GameManager.SwitchGameState(m_GameManager.GetCurrentGameState(), m_GameManager.GetTargetGameState());
     }
@@ -41,13 +50,16 @@ public class GlobalManager : MonoBehaviour {
             }
             if (GlobalManager.Instance.GetGameManager.GetCurrentGameState() == enGameState.GameState_GameMainMenu)
             {
-                if (GlobalManager.Instance.GetGameManager.GetPrevGameState() == enGameState.GameState_GamePlay)
+                if (Time.realtimeSinceStartup - exitTimeRecorder < 0.3f)
                 {
-                    Application.Quit();
+                    //Application.Quit();
+                    m_AdController.AndroidExit();
+                }
+                else
+                {
+                    exitTimeRecorder = Time.realtimeSinceStartup;
                 }
             }
-            //enGameState currState = GlobalManager.Instance.GetGameManager.GetCurrentGameState();
-            //GlobalManager.Instance.GetGameManager.SwitchGameState(currState, enGameState.GameState_GameIfQuit);
         }
     }
 
@@ -100,6 +112,11 @@ public class GlobalManager : MonoBehaviour {
     public ADController GetAdController
     {
         get { return m_AdController; }
+    }
+
+    public AudioController GetAudioController
+    {
+        get { return m_AudioController; }
     }
 
 	
