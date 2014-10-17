@@ -6,6 +6,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using AGMAlgorithm;
+using Umeng;
+
 public class GameController {
 
     public delegate void GameStartDelegate();
@@ -27,6 +29,7 @@ public class GameController {
         pathDirs.Clear();
         levelID = GlobalManager.Instance.GetDataManager.GetGameLevel();
         levelData = GlobalManager.Instance.GetLevelManager.GetLevelData(levelID);
+        GA.StartLevel(levelID.ToString());        // UMeng
     }
 
 
@@ -47,23 +50,30 @@ public class GameController {
         return false;
     }
 
-
+    int adControlNumber = 0;
     public void GameEnd(bool isWon)
     {
+        ++adControlNumber;
         if (GlobalManager.adKillCode < 20)
         {
-            GlobalManager.Instance.GetAdController.ShowAD();
+            if (adControlNumber % 3 == 0)
+            {
+                GlobalManager.Instance.GetAdController.ShowAD();
+            }
         }
 
         if (isWon)
         {
+            GA.FinishLevel(levelID.ToString());        // UMeng
             GlobalManager.Instance.GetDataManager.UpgradeData();
+        }
+        else
+        {
+            GA.FailLevel(levelID.ToString());        // UMeng
         }
 
         InitGame();
         GlobalManager.Instance.GetGameManager.SwitchGameState(enGameState.GameState_GamePlay, enGameState.GameState_GamePlay);
-        //gameEndEvent();
-        //ClearGameData();
     }
 
     public void GamePause()

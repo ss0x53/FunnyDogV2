@@ -102,7 +102,7 @@ public class Player : MonoBehaviour {
         {
             yield return new WaitForSeconds(0.5f);
             playerMesh.animation.Play("Anim_PlayerWon");
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(2.5f);
         }
         else
         {
@@ -110,8 +110,8 @@ public class Player : MonoBehaviour {
             transform.localEulerAngles = new Vector3(0, 0, -20);
             yield return new WaitForSeconds(0.6f);
             transform.localEulerAngles = new Vector3(0, 0, -90);
-            transform.localPosition -= new Vector3(0, 60, 0);
-            yield return new WaitForSeconds(1.0f);
+            //transform.localPosition -= new Vector3(0, 60, 0);
+            yield return new WaitForSeconds(1.5f);
         }
 
         GameOver(isWon);

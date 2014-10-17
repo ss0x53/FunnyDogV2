@@ -4,6 +4,7 @@
 
 using UnityEngine;
 using System.Collections;
+using Umeng;
 
 public class GlobalManager : MonoBehaviour {
 
@@ -31,6 +32,7 @@ public class GlobalManager : MonoBehaviour {
 
     void Awake()
     {
+        GA.StartWithAppKeyAndChannelId("5440b4d0fd98c5593a010814", "QQGroup");        // UMeng
         DontDestroyOnLoad(gameObject);
         m_Instance = this;
         Init();
