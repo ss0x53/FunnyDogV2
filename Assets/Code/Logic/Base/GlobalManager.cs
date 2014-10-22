@@ -32,12 +32,11 @@ public class GlobalManager : MonoBehaviour {
 
     void Awake()
     {
-        GA.StartWithAppKeyAndChannelId("5440b4d0fd98c5593a010814", "QQGroup");        // UMeng
+        GA.StartWithAppKeyAndChannelId("5440b4d0fd98c5593a010814", "91");        // UMeng
         DontDestroyOnLoad(gameObject);
         m_Instance = this;
         Init();
         m_AdController = GameObject.Find("ADController").GetComponent<ADController>();
-
         // Game Start Trigger
         m_GameManager.SwitchGameState(m_GameManager.GetCurrentGameState(), m_GameManager.GetTargetGameState());
     }

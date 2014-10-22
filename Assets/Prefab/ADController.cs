@@ -5,6 +5,7 @@ public class ADController : MonoBehaviour {
 
     AndroidJavaClass jc;
     AndroidJavaObject jo;
+    bool isShowAD = false;
  
     void Start()
     {
@@ -13,8 +14,23 @@ public class ADController : MonoBehaviour {
             jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
             jo = jc.GetStatic<AndroidJavaObject>("currentActivity");
         }
+
+        StartCoroutine(SetShowADSign());
     }
 
+
+    IEnumerator SetShowADSign()
+    {
+        WWW www = new WWW("http://www.argamente.com/FunnyDogADSwitch.html");
+        yield return www;
+        if (www.error == null)
+        {
+            if (www.text == "1")
+            {
+                isShowAD = true;
+            }
+        }
+    }
 
     void AdShowCallback(string code)
     {
@@ -35,6 +51,7 @@ public class ADController : MonoBehaviour {
 
     public void ShowAD()
     {
+        if (!isShowAD) { return; }
         jo.Call("ShowAd");
     }
 
